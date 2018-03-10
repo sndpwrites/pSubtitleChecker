@@ -10,31 +10,35 @@ def countWords(subtitle):
     return wordCnt
 
 
-def listFiles():
-    for file in glob.glob("*.srt"):
+def listFiles(filetype):
+    for file in glob.glob(filetype):
         wordCnt = countWords(file)
         if wordCnt==0:
             print file+ " : " + wordCnt.__str__()
 
 
-def remove_dup_files():
+def remove_dup_files(filetype):
     unique = []
-    print "Following duplicate files found and removed."
-    for file in glob.glob("*.srt"):
+    for file in glob.glob(filetype):
         episode = file[8:16]
         if episode not in unique:
             unique.append(episode)
         else:
-            print file
+            print "Duplicate found for "+ file
             os.remove(file)
+    print "Duplicate files found and removed."
 
 
-def cleanUp():
-    for file in glob.glob("*.srt"):
+def cleanUp(filetype):
+    for file in glob.glob(filetype):
         os.remove(file)
 
 
 print "Initiating counter"
-remove_dup_files()
-listFiles()
-cleanUp()
+remove_dup_files("*.srt")
+remove_dup_files("*.sub")
+listFiles("*.srt")
+listFiles("*.sub")
+cleanUp("*.srt")
+cleanUp("*.sub")
+print "Done!"
