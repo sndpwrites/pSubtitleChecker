@@ -9,11 +9,13 @@ def countWords(subtitle):
                 wordCnt+=1
     return wordCnt
 
+
 def listFiles():
     for file in glob.glob("*.srt"):
         wordCnt = countWords(file)
         if wordCnt==0:
             print file+ " : " + wordCnt.__str__()
+
 
 def remove_dup_files():
     unique = []
@@ -26,10 +28,13 @@ def remove_dup_files():
             print file
             os.remove(file)
 
+
 def cleanUp():
     for file in glob.glob("*.srt"):
         os.remove(file)
 
+
 print "Initiating counter"
+remove_dup_files()
 listFiles()
 cleanUp()
